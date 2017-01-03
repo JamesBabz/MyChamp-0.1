@@ -73,7 +73,7 @@ public class MainViewController implements Initializable {
                 {
                     btnStart.setDisable(false);
                 }
-                if (amount == 3)
+                if (amount == 16)
                 {
                     btnAdd.setDisable(true);
                 }
