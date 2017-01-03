@@ -90,6 +90,10 @@ public class MainViewController implements Initializable
         });
     }
 
+    /**
+     * Handles if buttons are disabled or active.
+     * @param list 
+     */
     private void observableListListener(ObservableList list)
     {
         list.addListener(new ListChangeListener()
@@ -156,6 +160,13 @@ public class MainViewController implements Initializable
 
     }
 
+
+    /**
+     * Macros handling the most common used functions.
+     * @param key
+     * @throws IOException 
+     */
+
     @FXML
     private void handleRemoveTeam()
     {
@@ -174,6 +185,7 @@ public class MainViewController implements Initializable
         }
       
     }
+
 
     @FXML
     private void macros(KeyEvent key) throws IOException
