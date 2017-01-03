@@ -102,6 +102,7 @@ public class MainViewController implements Initializable {
 
         newStage.show();
     }
+    
 
     /**
      * Opens the TeamName view when pressed
