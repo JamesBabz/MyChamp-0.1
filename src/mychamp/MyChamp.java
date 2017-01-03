@@ -11,23 +11,22 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
 /**
  *
  * @author James
  */
 public class MyChamp extends Application {
-    
-      @Override
+
+    @Override
     public void start(Stage stage) throws Exception
     {
-        Parent root = FXMLLoader.load(getClass().getResource("gui/view/MainView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("gui/view/TeamManagerView.fxml"));
 
         Scene scene = new Scene(root);
-
+        stage.setTitle("Team Manager");
         stage.setScene(scene);
         stage.show();
-     
+
     }
 
     /**
@@ -37,5 +36,5 @@ public class MyChamp extends Application {
     {
         launch(args);
     }
-    
+
 }
