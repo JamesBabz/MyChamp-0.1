@@ -7,9 +7,8 @@ package mychamp.gui.controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,10 +17,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import mychamp.be.Team;
 import mychamp.gui.model.ChampModel;
 
 /**
@@ -48,6 +47,7 @@ public class MainViewController implements Initializable {
     public MainViewController()
     {
         model = ChampModel.getInstance();
+        observableListListener(model.getTeamNames());
     }
 
     /**
@@ -62,9 +62,30 @@ public class MainViewController implements Initializable {
         listTeams.setItems(model.getTeamNames());
     }
 
+    private void observableListListener(ObservableList list)
+    {
+        list.addListener(new ListChangeListener() {
+            @Override
+            public void onChanged(ListChangeListener.Change change)
+            {
+                int amount = list.size();
+                if (amount >= 12)
+                {
+                    btnStart.setDisable(false);
+                }
+                if (amount == 3)
+                {
+                    btnAdd.setDisable(true);
+                }
+            }
+
+        });
+    }
+
     /**
      * Opens the TeamName view when pressed
-     * @throws IOException 
+     *
+     * @throws IOException
      */
     @FXML
     private void handleAddTeam() throws IOException
@@ -84,7 +105,8 @@ public class MainViewController implements Initializable {
 
     /**
      * Opens the TeamName view when pressed
-     * @throws IOException 
+     *
+     * @throws IOException
      */
     @FXML
     private void handleEditTeam()
@@ -92,4 +114,27 @@ public class MainViewController implements Initializable {
 
     }
 
+    
+    @FXML
+    private void macros(KeyEvent key) throws IOException
+    {
+
+        if (key.isControlDown())
+        {
+               if (KeyCode.N == key.getCode() && !btnAdd.isDisable())
+                {
+                    handleAddTeam();
+                }
+
+                if (KeyCode.P == key.getCode())
+                {
+                    handleEditTeam();
+                }
+            }
+        if(KeyCode.DELETE == key.getCode())
+        {
+         //   handleDeleteTeam();
+        }
+    }
+    
 }
