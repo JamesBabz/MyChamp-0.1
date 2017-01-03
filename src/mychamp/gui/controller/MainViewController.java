@@ -7,7 +7,9 @@ package mychamp.gui.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,7 +17,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -28,7 +33,8 @@ import mychamp.gui.model.ChampModel;
  *
  * @author Thomas
  */
-public class MainViewController implements Initializable {
+public class MainViewController implements Initializable
+{
 
     @FXML
     private ListView listTeams;
@@ -43,6 +49,7 @@ public class MainViewController implements Initializable {
 
     private ObservableList teams;
     private ChampModel model;
+    private int selectedTeamIndex;
 
     public MainViewController()
     {
@@ -60,6 +67,27 @@ public class MainViewController implements Initializable {
         btnRemove.setDisable(true);
         btnStart.setDisable(true);
         listTeams.setItems(model.getTeamNames());
+        
+        listTeams.getSelectionModel().selectedItemProperty().addListener(new javafx.beans.value.ChangeListener() {
+        
+           
+            @Override
+            public void changed(ObservableValue selected, Object oldValue, Object newValue)
+            {
+              if (selected.getValue() == null)
+                {
+                    btnEdit.setDisable(true);
+                    btnRemove.setDisable(true);
+                }
+                else
+                {
+                    selectedTeamIndex = listTeams.getSelectionModel().getSelectedIndex();
+                    btnEdit.setDisable(false);
+                    btnRemove.setDisable(false);
+                }
+            }
+       
+        });
     }
 
     /**
@@ -68,7 +96,8 @@ public class MainViewController implements Initializable {
      */
     private void observableListListener(ObservableList list)
     {
-        list.addListener(new ListChangeListener() {
+        list.addListener(new ListChangeListener()
+        {
             @Override
             public void onChanged(ListChangeListener.Change change)
             {
@@ -106,7 +135,6 @@ public class MainViewController implements Initializable {
 
         newStage.show();
     }
-    
 
     /**
      * Opens the TeamName view when pressed
@@ -116,34 +144,69 @@ public class MainViewController implements Initializable {
     @FXML
     private void handleEditTeam() throws IOException
     {
+          Stage primaryStage = (Stage) listTeams.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mychamp/gui/view/TeamName.fxml"));
+        Parent root = loader.load();
+
+        Stage newStage = new Stage();
+        newStage.setScene(new Scene(root));
+
+        newStage.initModality(Modality.WINDOW_MODAL);
+        newStage.initOwner(primaryStage);
+
+        newStage.show();
+        
+        model.editTeam(selectedTeamIndex);
 
     }
 
+<<<<<<< HEAD
     /**
      * Macros handling the most common used functions.
      * @param key
      * @throws IOException 
      */
+=======
+    @FXML
+    private void handleRemoveTeam()
+    {
+
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Remove team");
+        alert.setHeaderText("Do you want to remove this team?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK)
+        {
+          model.removeTeam(selectedTeamIndex);
+        } else
+        {
+            // ... user chose CANCEL or closed the dialog
+        }
+      
+    }
+
+>>>>>>> refs/remotes/origin/master
     @FXML
     private void macros(KeyEvent key) throws IOException
     {
 
         if (key.isControlDown())
         {
-               if (KeyCode.N == key.getCode() && !btnAdd.isDisable())
-                {
-                    handleAddTeam();
-                }
-
-                if (KeyCode.P == key.getCode())
-                {
-                    handleEditTeam();
-                }
+            if (KeyCode.N == key.getCode() && !btnAdd.isDisable())
+            {
+                handleAddTeam();
             }
-        if(KeyCode.DELETE == key.getCode())
+
+            if (KeyCode.E == key.getCode() && !btnEdit.isDisable())
+            {
+                handleEditTeam();
+            }
+        }
+        if (KeyCode.DELETE == key.getCode() && !btnRemove.isDisable())
         {
-         //   handleDeleteTeam();
+               handleRemoveTeam();
         }
     }
-    
+
 }
