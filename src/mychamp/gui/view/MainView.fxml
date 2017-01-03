@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" onKeyPressed="#macros" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mychamp.gui.controller.TeamManagerController">
+<AnchorPane id="AnchorPane" onKeyPressed="#macros" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mychamp.gui.controller.MainViewController">
    <children>
       <ListView fx:id="listTeams" focusTraversable="false" layoutX="12.0" layoutY="53.0" prefHeight="295.0" prefWidth="577.0" />
       <Button fx:id="btnAdd" focusTraversable="false" layoutX="14.0" layoutY="359.0" mnemonicParsing="false" onAction="#handleAddTeam" prefHeight="27.0" prefWidth="106.0" text="Add Team" />

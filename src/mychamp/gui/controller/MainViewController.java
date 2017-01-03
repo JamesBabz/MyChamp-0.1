@@ -33,7 +33,8 @@ import mychamp.gui.model.ChampModel;
  *
  * @author Thomas
  */
-public class TeamManagerController implements Initializable {
+public class MainViewController implements Initializable
+{
 
     @FXML
     private ListView listTeams;
@@ -50,7 +51,7 @@ public class TeamManagerController implements Initializable {
     private ChampModel model;
     private int selectedTeamIndex;
 
-    public TeamManagerController()
+    public MainViewController()
     {
         model = ChampModel.getInstance();
         observableListListener(model.getTeamNames());
@@ -66,13 +67,14 @@ public class TeamManagerController implements Initializable {
         btnRemove.setDisable(true);
         btnStart.setDisable(true);
         listTeams.setItems(model.getTeamNames());
-
+        
         listTeams.getSelectionModel().selectedItemProperty().addListener(new javafx.beans.value.ChangeListener() {
-
+        
+           
             @Override
             public void changed(ObservableValue selected, Object oldValue, Object newValue)
             {
-                if (selected.getValue() == null)
+              if (selected.getValue() == null)
                 {
                     btnEdit.setDisable(true);
                     btnRemove.setDisable(true);
@@ -84,13 +86,14 @@ public class TeamManagerController implements Initializable {
                     btnRemove.setDisable(false);
                 }
             }
-
+       
         });
     }
 
     private void observableListListener(ObservableList list)
     {
-        list.addListener(new ListChangeListener() {
+        list.addListener(new ListChangeListener()
+        {
             @Override
             public void onChanged(ListChangeListener.Change change)
             {
@@ -117,7 +120,7 @@ public class TeamManagerController implements Initializable {
     private void handleAddTeam() throws IOException
     {
         Stage primaryStage = (Stage) listTeams.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mychamp/gui/view/TeamNameView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mychamp/gui/view/TeamName.fxml"));
         Parent root = loader.load();
 
         Stage newStage = new Stage();
@@ -125,7 +128,6 @@ public class TeamManagerController implements Initializable {
 
         newStage.initModality(Modality.WINDOW_MODAL);
         newStage.initOwner(primaryStage);
-        newStage.setTitle("New team");
 
         newStage.show();
     }
@@ -138,9 +140,8 @@ public class TeamManagerController implements Initializable {
     @FXML
     private void handleEditTeam() throws IOException
     {
-        model.setEditTeam(selectedTeamIndex);
-        Stage primaryStage = (Stage) listTeams.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mychamp/gui/view/TeamNameView.fxml"));
+          Stage primaryStage = (Stage) listTeams.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mychamp/gui/view/TeamName.fxml"));
         Parent root = loader.load();
 
         Stage newStage = new Stage();
@@ -148,9 +149,10 @@ public class TeamManagerController implements Initializable {
 
         newStage.initModality(Modality.WINDOW_MODAL);
         newStage.initOwner(primaryStage);
-        newStage.setTitle("Edit team");
 
         newStage.show();
+        
+        model.editTeam(selectedTeamIndex);
 
     }
 
@@ -165,13 +167,12 @@ public class TeamManagerController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK)
         {
-            model.removeTeam(selectedTeamIndex);
-        }
-        else
+          model.removeTeam(selectedTeamIndex);
+        } else
         {
             // ... user chose CANCEL or closed the dialog
         }
-
+      
     }
 
     @FXML
@@ -192,7 +193,7 @@ public class TeamManagerController implements Initializable {
         }
         if (KeyCode.DELETE == key.getCode() && !btnRemove.isDisable())
         {
-            handleRemoveTeam();
+               handleRemoveTeam();
         }
     }
 
