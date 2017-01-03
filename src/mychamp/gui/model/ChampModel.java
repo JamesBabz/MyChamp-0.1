@@ -81,4 +81,16 @@ public class ChampModel {
             teamNames.add(team.getName());
         }
     }
+
+    public void removeTeam(int team)
+    {
+        
+         teams.remove(team);
+         setTeamNames();
+    }
+
+    public void editTeam(int team)
+    {
+        
+    }
 }
