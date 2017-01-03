@@ -18,6 +18,7 @@ public class ChampModel {
 
     private final ArrayList<Team> teams;
     private final ObservableList<String> teamNames;
+    private Team editTeam;
 
     private static ChampModel instance;
 
@@ -89,8 +90,28 @@ public class ChampModel {
          setTeamNames();
     }
 
-    public void editTeam(int team)
+    public void setEditTeam(int team)
     {
-        
+        if(team >= 0)
+        {
+        editTeam = teams.get(team);
+        }
+        else
+        {
+            editTeam = null;
+        }
+    }
+    
+    public Team getEditTeam()
+    {
+        return editTeam;
+    }
+
+    public void editTeam(String name)
+    {
+        int index = teams.indexOf(editTeam);
+        teams.set(index, new Team(name));
+        editTeam = null;
+        setTeamNames();
     }
 }
