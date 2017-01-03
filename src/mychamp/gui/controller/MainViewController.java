@@ -73,7 +73,7 @@ public class MainViewController implements Initializable {
                 {
                     btnStart.setDisable(false);
                 }
-                if (amount == 3)
+                if (amount == 16)
                 {
                     btnAdd.setDisable(true);
                 }
@@ -102,6 +102,7 @@ public class MainViewController implements Initializable {
 
         newStage.show();
     }
+    
 
     /**
      * Opens the TeamName view when pressed
