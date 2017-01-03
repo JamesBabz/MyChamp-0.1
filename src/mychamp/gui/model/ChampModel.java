@@ -39,6 +39,7 @@ public class ChampModel {
 
     /**
      * Creates a new team
+     *
      * @param name - Name of the team
      */
     public void addTeam(String name)
@@ -50,20 +51,22 @@ public class ChampModel {
 
     /**
      * Returns ArrayList of all the teams
+     *
      * @return - Team object
      */
     public ArrayList<Team> getTeams()
     {
         return teams;
     }
-    
+
     /**
      * Returns ObservableList of all team names
+     *
      * @return - Team names
      */
     public ObservableList<String> getTeamNames()
     {
-        
+
         return teamNames;
     }
 
@@ -78,5 +81,4 @@ public class ChampModel {
             teamNames.add(team.getName());
         }
     }
-
 }
