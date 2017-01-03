@@ -62,6 +62,10 @@ public class MainViewController implements Initializable {
         listTeams.setItems(model.getTeamNames());
     }
 
+    /**
+     * Handles if buttons are disabled or active.
+     * @param list 
+     */
     private void observableListListener(ObservableList list)
     {
         list.addListener(new ListChangeListener() {
@@ -73,7 +77,7 @@ public class MainViewController implements Initializable {
                 {
                     btnStart.setDisable(false);
                 }
-                if (amount == 3)
+                if (amount == 16)
                 {
                     btnAdd.setDisable(true);
                 }
@@ -109,12 +113,16 @@ public class MainViewController implements Initializable {
      * @throws IOException
      */
     @FXML
-    private void handleEditTeam()
+    private void handleEditTeam() throws IOException
     {
 
     }
 
-    
+    /**
+     * Macros handling the most common used functions.
+     * @param key
+     * @throws IOException 
+     */
     @FXML
     private void macros(KeyEvent key) throws IOException
     {
