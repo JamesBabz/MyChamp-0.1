@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -56,14 +57,25 @@ public class TeamNameController implements Initializable {
     private void handleSave()
     {
         String name = txtName.getText();
-        if(isEdit)
+        if (name.equals(""))
         {
-            model.editTeam(name);
+             Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Error");
+        alert.setHeaderText("Team name cannot be empty");
+        alert.showAndWait();
         }
-        else{
-        model.addTeam(name);
+        else
+        {
+            if (isEdit)
+            {
+                model.editTeam(name);
+            }
+            else
+            {
+                model.addTeam(name);
+            }
+            closeWindow();
         }
-        closeWindow();
     }
 
     /**
