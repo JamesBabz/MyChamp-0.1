@@ -160,13 +160,13 @@ public class MainViewController implements Initializable
 
     }
 
-<<<<<<< HEAD
+
     /**
      * Macros handling the most common used functions.
      * @param key
      * @throws IOException 
      */
-=======
+
     @FXML
     private void handleRemoveTeam()
     {
@@ -186,7 +186,7 @@ public class MainViewController implements Initializable
       
     }
 
->>>>>>> refs/remotes/origin/master
+
     @FXML
     private void macros(KeyEvent key) throws IOException
     {
